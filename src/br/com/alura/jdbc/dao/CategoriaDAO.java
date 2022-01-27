@@ -18,7 +18,8 @@ public class CategoriaDAO {
 		this.connection = connection;
 	}
 
-	public List<Categoria> listar() throws SQLException {
+	public List<Categoria> listar()  {
+	try {
 		List<Categoria> categorias = new ArrayList<>();
 		String sql = "SELECT ID, NOME FROM CATEGORIA";
 
@@ -34,9 +35,13 @@ public class CategoriaDAO {
 			}
 		}
 		return categorias;
+	}catch(SQLException e) {
+		throw new RuntimeException(e.getMessage());
+	}
 	}
 
-	public List<Categoria> listarComProduto() throws SQLException {
+	public List<Categoria> listarComProduto()   {
+		
 		Categoria ultima = null;
 		List<Categoria> categorias = new ArrayList<>();
 
@@ -58,7 +63,11 @@ public class CategoriaDAO {
 					ultima.adicionar(produto);
 				}
 			}
+			
 			return categorias;
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
 		}
+
 	}
 }
